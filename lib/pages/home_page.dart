@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wund/pages/pagina_consulta.dart';
+import 'package:wund/pages/profissional_page.dart';
 
 import 'pagina_inicial.dart';
 
@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
           controller: pc,
           children: [
             PaginaInicial(),
-            PaginaConsulta(),
+            ProfissionalPage(),
           ],
           onPageChanged: setPaginaAtual,
         ),
@@ -55,8 +55,8 @@ class _HomePageState extends State<HomePage> {
           onTap: (pagina) {
             pc.animateToPage(
               pagina,
-              duration: Duration(milliseconds: 400),
-              curve: Curves.ease,
+              duration: Duration(milliseconds: 10),
+              curve: Curves.bounceIn,
             );
           },
           // backgroundColor: Colors.grey[100],

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:wund/models/user_repository.dart';
-import 'package:wund/pages/verify_page.dart';
 import 'package:wund/widgets/auth_check.dart';
 
 import '../services/auth_services.dart';
@@ -222,7 +221,7 @@ class _CadastroPageState extends State<CadastroPage> {
                     child: ElevatedButton(
                       style: ButtonStyle(
                         fixedSize:
-                            MaterialStateProperty.all(const Size(160, 50)),
+                            MaterialStateProperty.all(const Size(180, 50)),
                         backgroundColor:
                             MaterialStateProperty.all<Color>(Colors.white),
                         shape: MaterialStateProperty.all(
@@ -236,7 +235,7 @@ class _CadastroPageState extends State<CadastroPage> {
                           registrar(nome.text);
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
-                            return VerifyEmailPage();
+                            return AuthCheck();
                           }));
                         }
                       },
@@ -247,7 +246,7 @@ class _CadastroPageState extends State<CadastroPage> {
                                 const Padding(
                                   padding: EdgeInsets.all(5),
                                   child: SizedBox(
-                                    width: 24,
+                                    width: 30,
                                     height: 24,
                                     child: CircularProgressIndicator(
                                       color: Colors.indigo,

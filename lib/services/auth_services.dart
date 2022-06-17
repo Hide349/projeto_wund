@@ -7,17 +7,16 @@ class AuthException implements Exception {
 }
 
 class AuthService extends ChangeNotifier {
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseAuth auth = FirebaseAuth.instance;
   User? usuario;
   bool isLoading = true;
-  bool isEmailVerified = false;
 
   AuthService() {
     _authCheck();
   }
 
   _authCheck() {
-    _auth.authStateChanges().listen((User? user) {
+    auth.authStateChanges().listen((User? user) {
       usuario = (user == null) ? null : user;
       isLoading = false;
       notifyListeners();
@@ -25,13 +24,13 @@ class AuthService extends ChangeNotifier {
   }
 
   _getUser() {
-    usuario = _auth.currentUser;
+    usuario = auth.currentUser;
     notifyListeners();
   }
 
   registrar(String email, String senha) async {
     try {
-      await _auth.createUserWithEmailAndPassword(email: email, password: senha);
+      await auth.createUserWithEmailAndPassword(email: email, password: senha);
       _getUser();
     } on FirebaseAuthException catch (err) {
       if (err.code == 'weak-password') {
@@ -44,7 +43,7 @@ class AuthService extends ChangeNotifier {
 
   login(String email, String senha) async {
     try {
-      await _auth.signInWithEmailAndPassword(email: email, password: senha);
+      await auth.signInWithEmailAndPassword(email: email, password: senha);
       _getUser();
     } on FirebaseAuthException catch (err) {
       if (err.code == 'user-not-found') {
@@ -55,25 +54,9 @@ class AuthService extends ChangeNotifier {
     }
   }
 
-  checkEmail() {
-    isEmailVerified = _auth.currentUser!.emailVerified;
-    if (!isEmailVerified) {
-      sendEmailVerification();
-    }
-    notifyListeners();
-  }
 
-  Future sendEmailVerification() async {
-    try {
-      _getUser();
-      final user = _auth.currentUser;
-      await user!.sendEmailVerification();
-    } catch (e) {
-      print(e);
-    }
-  }
 
   logout() async {
-    await _auth.signOut();
+    await auth.signOut();
   }
 }

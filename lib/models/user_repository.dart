@@ -27,7 +27,6 @@ class UserRepository extends ChangeNotifier {
           .doc(auth.usuario!.uid)
           .set({
         'nome': nome,
-        'idade': 20,
       });
     } catch (err) {
       debugPrint('Permissão requirida no Firestore: $err');

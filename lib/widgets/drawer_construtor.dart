@@ -16,14 +16,13 @@ class DrawerConstrutor extends StatefulWidget {
 class _DrawerState extends State<DrawerConstrutor> {
   final email = TextEditingController();
   final senha = TextEditingController();
+  var nome = '';
 
   @override
   initState() {
     context.read<UserRepository>().readName();
     super.initState();
   }
-
-
 
   listTileConstrutor(IconData icon, String title) {
     return ListTile(
@@ -89,7 +88,6 @@ class _DrawerState extends State<DrawerConstrutor> {
 
   @override
   Widget build(BuildContext context) {
-    var nome = '';
     nome = context.read<UserRepository>().nome;
     return Drawer(
       child: Container(

@@ -35,12 +35,12 @@ class _PaginaInicialState extends State<PaginaInicial> {
     super.initState();
   }
 
-
   @override
-  Widget build(BuildContext context) {    
+  Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        fontFamily: 'Chewy',
         primaryColor: Colors.white,
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: TextButton.styleFrom(
@@ -61,32 +61,102 @@ class _PaginaInicialState extends State<PaginaInicial> {
             ),
           ),
         ),
-        body: Column(
-          children: [
-            Center(
-              child: Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage('assets/imagens/fundo.png'),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Center(
+                child: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage('assets/imagens/fundo.png'),
+                    ),
+                  ),
+                  width: MediaQuery.of(context).size.width,
+                  height: 150,
+                  child: PageView.builder(
+                    controller: _pageController,
+                    itemCount: _listSlide.length,
+                    itemBuilder: (_, int index) {
+                      bool activePage = index == _currentPage;
+                      return SlideTile(
+                        activePage: activePage,
+                        image: _listSlide[index]['image'].toString(),
+                      );
+                    },
                   ),
                 ),
-                width: MediaQuery.of(context).size.width,
-                height: 150,
-                child: PageView.builder(
-                  controller: _pageController,
-                  itemCount: _listSlide.length,
-                  itemBuilder: (_, int index) {
-                    bool activePage = index == _currentPage;
-                    return SlideTile(
-                      activePage: activePage,
-                      image: _listSlide[index]['image'].toString(),
-                    );
-                  },
-                ),
               ),
-            ),
-          ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Text(
+                      'DEPRESSÃO X ANSIEDADE',
+                      style: TextStyle(fontSize: 25),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    margin: EdgeInsets.all(5),
+                    width: MediaQuery.of(context).size.width / 2,
+                    child: Text(
+                      ' A depressão é um distúrbio afetivo que  acompanha a humanidade ao longo de sua história. No sentido patológico, há presença de tristeza, pessimismo, baixa  auto-estima, que aparecem com frequência e podem combinar-se  entre si.',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(5),
+                    width: 170,
+                    child: Text(
+                      'A ansiedade e os transtornos de ansiedade são um conjunto de doenças psiquiátricas marcadas pela preocupação excessiva ou constante de que algo negativo vai acontecer.',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  )
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Text(
+                      'POSSÍVEIS CAUSAS',
+                      style: TextStyle(fontSize: 25),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    margin: EdgeInsets.all(5),
+                    width: MediaQuery.of(context).size.width / 2,
+                    child: Text(
+                      ' Histórico familiar; Transtornos psiquiátricos correlatos; Estresse crônico; Ansiedade crônica; Disfunções hormonais; Excesso de peso; Sedentarismo e dieta desregrada; Vícios (cigarro, álcool e drogas ilícitas); Uso excessivo de internet e redes sociais; Traumas físicos ou psicológicos; Pancadas na cabeça; Problemas cardíacos; Separação conjugal; Enxaqueca crônica',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(5),
+                    width: 175,
+                    child: Text(
+                      ' Histórico familiar; Transtornos psiquiátricos correlatos; Estresse crônico; Ansiedade crônica; Disfunções hormonais; Excesso de peso; Sedentarismo e dieta desregrada; Vícios (cigarro, álcool e drogas ilícitas); Uso excessivo de internet e redes sociais; Traumas físicos ou psicológicos; Pancadas na cabeça; Problemas cardíacos; Separação conjugal; Enxaqueca crônica',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

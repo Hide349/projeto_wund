@@ -14,7 +14,7 @@ headerWidget(String nome) {
         Text(
           nome,
           style: TextStyle(
-              fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
+              fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold,fontFamily: 'Arial'),
         ),
       ],
     ),
