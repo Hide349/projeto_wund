@@ -1,4 +1,9 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class DetalhesPage extends StatefulWidget {
   String nome;
@@ -17,9 +22,28 @@ class DetalhesPage extends StatefulWidget {
 }
 
 class _DetalhesPageState extends State<DetalhesPage> {
+  _showDialog() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return CupertinoAlertDialog(
+            title: Text('Whastapp não instalado'),
+            actions: [
+              MaterialButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('OK!'),
+              ),
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(useMaterial3: true),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Container(
@@ -79,7 +103,7 @@ class _DetalhesPageState extends State<DetalhesPage> {
                                 Container(
                                   width: MediaQuery.of(context).size.width / 2,
                                   child: Text(
-                                    'Rua Amâncio leito centro de milagres-ce vizinho a hospital.',
+                                    'Rua Amâncio leito centro de milagres-ce vizinho ao hospital.',
                                     style: TextStyle(
                                         color: Colors.white,
                                         letterSpacing: 1,
@@ -120,7 +144,7 @@ class _DetalhesPageState extends State<DetalhesPage> {
                             ),
                             Container(
                               margin: EdgeInsets.only(top: 5),
-                              child: Text('Sessão: R\$${ widget.secao.toInt()} ',
+                              child: Text('Sessão: R\$${widget.secao.toInt()} ',
                                   style: TextStyle(
                                       fontFamily: 'Arial',
                                       fontWeight: FontWeight.w500,
@@ -130,13 +154,16 @@ class _DetalhesPageState extends State<DetalhesPage> {
                             Padding(
                               padding: const EdgeInsets.all(15),
                               child: ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  openWhatsapp();
+                                },
                                 child: Text(
                                   'Agendar',
                                   style: TextStyle(
                                       fontSize: 17,
                                       letterSpacing: 1,
                                       fontFamily: 'Arial',
+                                      color: Colors.white,
                                       fontWeight: FontWeight.w500),
                                 ),
                                 style: ButtonStyle(
@@ -163,5 +190,18 @@ class _DetalhesPageState extends State<DetalhesPage> {
         ),
       ),
     );
+  }
+
+  openWhatsapp() async {
+    var whatsapp = '+558899543768';
+    var whatsappURL_android = 'whatsapp://send?phone=' + whatsapp;
+
+    if (Platform.isAndroid) {
+      if (await canLaunchUrlString(whatsappURL_android)) {
+        await launchUrlString(whatsappURL_android);
+      } else {
+        _showDialog();
+      }
+    } else {}
   }
 }

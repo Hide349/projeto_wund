@@ -4,6 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:wund/services/auth_services.dart';
 
 import '../models/user_repository.dart';
+import '../pages/config.dart';
+import '../pages/sobre.dart';
+import '../pages/suporte.dart';
 import 'header_widget.dart';
 
 class DrawerConstrutor extends StatefulWidget {
@@ -24,8 +27,13 @@ class _DrawerState extends State<DrawerConstrutor> {
     super.initState();
   }
 
-  listTileConstrutor(IconData icon, String title) {
+  listTileConstrutor(IconData icon, String title, Rota) {
     return ListTile(
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (_) {
+          return Rota;
+        }));
+      },
       leading: Icon(
         icon,
         color: Colors.white,
@@ -110,9 +118,10 @@ class _DrawerState extends State<DrawerConstrutor> {
                   ),
                   headerWidget(nome),
                   const Divider(thickness: 1, height: 40, color: Colors.cyan),
-                  listTileConstrutor(Icons.support_agent, 'Suporte'),
-                  listTileConstrutor(Icons.info_outlined, 'Sobre'),
-                  listTileConstrutor(Icons.settings, 'Configurações')
+                  listTileConstrutor(Icons.support_agent, 'Suporte', Suporte()),
+                  listTileConstrutor(Icons.info_outlined, 'Sobre', Sobre()),
+                  listTileConstrutor(
+                      Icons.settings, 'Configurações', Configuracoes())
                 ],
               ),
               buttonLogout(),
